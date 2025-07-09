@@ -1,0 +1,84 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 2rem;
+    padding-bottom: 3rem;
+    z-index: 1;
+}
+
+.welcome-card {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    transition: transform 0.2s ease-in-out;
+}
+
+.welcome-card:hover {
+    box-shadow: 0 6px 18px rgba(85, 101, 228, 0.25), 0 2px 6px rgba(0, 0, 0, 0.8);
+    transform: translateY(-5px);
+}
+
+.welcome-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #8565e4;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    font-size: 1.125rem;
+    color: #000000;
+}
+
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.card {
+    flex: 1;
+    min-width: 220px;
+    padding: 1.25rem;
+    margin: 15px 5px;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #a78bfa;
+    margin-bottom: 0.75rem;
+}
+
+.dashboard-footer {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.task-chart-container{
+    width: 350px;
+    margin: 0px;
+    padding: 0px;
+    right: 0;
+}
