@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useMemo } from "react";
 import {
   ChevronFirst,
   ChevronLast,
@@ -8,12 +8,11 @@ import {
 } from "lucide-react";
 import "./SideBar.css";
 import PropTypes from "prop-types";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const SideBarContext = createContext();
 
-function SideBar({ children }) {
-  const [expand, setExpand] = useState(true);
+function SideBar({ expand, setExpand, children }) {
   const user = { name: "DB", email: "db@tcs.com" };
   const contextValue = useMemo(() => ({ expand }), [expand]);
 
@@ -47,6 +46,7 @@ function SideBar({ children }) {
           )}
         </div>
       </nav>
+      <ToastContainer />
     </aside>
   );
 }
@@ -97,6 +97,8 @@ export function SideBarFooter({ icon, text, onClick }) {
 }
 SideBar.propTypes = {
   children: PropTypes.node,
+  expand: PropTypes.bool.isRequired,
+  setExpand: PropTypes.func.isRequired,
 };
 
 SideBarItem.propTypes = {

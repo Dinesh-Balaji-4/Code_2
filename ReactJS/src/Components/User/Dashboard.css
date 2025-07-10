@@ -7,16 +7,23 @@
 
 .dashboard-content {
     flex-grow: 1;
-    padding: 2rem;
-    padding-bottom: 3rem;
+    padding: 1.25rem 1.5rem;
     z-index: 1;
+    transition: margin-left 0.3s ease;
+    margin-left: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-content.collapsed {
+    margin-left: 100px;
+    transition: margin-left 0.3s ease;
 }
 
 .welcome-card {
     padding: 1.5rem;
     border-radius: 0.75rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
     transition: transform 0.2s ease-in-out;
 }
 
@@ -51,6 +58,7 @@
     border-radius: 0.75rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     transition: transform 0.2s;
+    background-color: #ffffff;
 }
 
 .card:hover {
@@ -69,16 +77,50 @@
     text-align: center;
     font-size: 0.875rem;
     color: #6b7280;
-    position: fixed;
-    z-index: 0;
-    left: 0;
-    right: 0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+    position: relative;
     bottom: 0;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    border-top: 1px solid #e5e7eb;
+
 }
 
-.task-chart-container{
-    width: 350px;
-    margin: 0px;
-    padding: 0px;
+.task-chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
     right: 0;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dashboard-content {
+        margin-left: 100px;
+        padding: 1rem;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;
+    }
+
+    .task-chart-container {
+        width: 100% !important;
+    }
 }

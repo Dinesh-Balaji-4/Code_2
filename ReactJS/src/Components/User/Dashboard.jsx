@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SideBar, { SideBarFooter, SideBarItem } from "../SideBar";
 import {
   LayoutDashboardIcon,
@@ -8,14 +9,29 @@ import {
   CodeIcon,
   Code2Icon,
   BotMessageSquare,
-  ChartLine,
+  Goal,
   MailIcon,
 } from "lucide-react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
 import { Doughnut, Bar } from "react-chartjs-2";
 import "./Dashboard.css";
 
-ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
 
 const tasks = {
   total: 20,
@@ -34,7 +50,7 @@ const TaskPieChart = () => {
     datasets: [
       {
         data: [tasks.completed, tasks.progress, tasks.pending],
-        backgroundColor: ["#b99eff", "#dcceff", "#f3eeff"],
+        backgroundColor: ["#b99eff", "#dcceff", "#fedfff"],
         borderColor: ["#fff", "#fff", "#fff"],
         borderWidth: 1,
       },
@@ -43,9 +59,11 @@ const TaskPieChart = () => {
 
   const options = {
     responsive: true,
+    width: 200,
+    height: 150,
     plugins: {
       legend: {
-        position: "bottom",      
+        position: "right",
       },
       title: {
         display: true,
@@ -72,17 +90,17 @@ const TaskPieChart = () => {
 
 const WeeklyBarChart = () => {
   const data = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
     datasets: [
       {
-        label: 'Assignments Completed',
+        label: "Assignments Completed",
         data: [2, 3, 4, 3],
-        backgroundColor: 'rgba(139, 93, 255, 0.6)',
+        backgroundColor: "rgba(139, 93, 255, 0.6)",
       },
       {
-        label: 'Assessments Completed',
+        label: "Assessments Completed",
         data: [1, 2, 2, 3],
-        backgroundColor: 'rgba(139, 93, 255, 0.3)',
+        backgroundColor: "rgba(139, 93, 255, 0.3)",
       },
     ],
   };
@@ -91,11 +109,11 @@ const WeeklyBarChart = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'bottom',
+        position: "bottom",
       },
       title: {
         display: true,
-        text: 'Weekly Progress Report',
+        text: "Weekly Progress Report",
       },
     },
     scales: {
@@ -103,7 +121,7 @@ const WeeklyBarChart = () => {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Count',
+          text: "Count",
         },
       },
     },
@@ -119,51 +137,59 @@ const WeeklyBarChart = () => {
 function Dashboard() {
   const [activeItem, setActiveItem] = useState("Dashboard");
   const user = { username: "DB" };
+  const [expand, setExpand] = useState(true);
+  const navigate = useNavigate();
+
+  const handleEvent = (value) => {
+    setActiveItem(value);
+    console.log(value);
+    navigate(`/${value.toLowerCase()}`);
+  };
 
   return (
     <div className="dashboard-container">
-      <SideBar>
+      <SideBar expand={expand} setExpand={setExpand}>
         <SideBarItem
           icon={<LayoutDashboardIcon />}
           text="Dashboard"
           active={activeItem === "Dashboard"}
-          onClick={() => setActiveItem("Dashboard")}
+          onClick={(e) => handleEvent("Dashboard")}
         />
         <SideBarItem
           icon={<CpuIcon />}
           text="Practice"
           active={activeItem === "Practice"}
-          onClick={() => setActiveItem("Practice")}
+          onClick={(e) => handleEvent("Practice")}
         />
         <SideBarItem
           icon={<PackageIcon />}
           text="Contents"
           active={activeItem === "Contents"}
-          onClick={() => setActiveItem("Contents")}
+          onClick={(e) => handleEvent("Contents")}
         />
         <SideBarItem
           icon={<RouteIcon />}
           text="RoadMap"
           active={activeItem === "RoadMap"}
-          onClick={() => setActiveItem("RoadMap")}
+          onClick={(e) => handleEvent("RoadMap")}
         />
         <SideBarItem
           icon={<CodeIcon />}
           text="Assignments"
           active={activeItem === "Assignments"}
-          onClick={() => setActiveItem("Assignments")}
+          onClick={() => handleEvent("Assignments")}
         />
         <SideBarItem
           icon={<Code2Icon />}
           text="Assessments"
           active={activeItem === "Assessments"}
-          onClick={() => setActiveItem("Assessments")}
+          onClick={() => handleEvent("Assessments")}
         />
         <SideBarItem
-          icon={<ChartLine size={34} color="#ffffff" strokeWidth={1} />}
+          icon={<Goal />}
           text="Reports"
           active={activeItem === "Reports"}
-          onClick={() => setActiveItem("Reports")}
+          onClick={() => handleEvent("Reports")}
         />
         <div className="chat-buttons">
           <SideBarFooter
@@ -173,7 +199,7 @@ function Dashboard() {
           <SideBarFooter icon={<MailIcon />} text="Chat-Fac" />
         </div>
       </SideBar>
-      <main className="dashboard-content">
+      <main className={`dashboard-content ${expand ? "" : "collapsed"}`}>
         <div className="welcome-card">
           <h1 className="welcome-title">Welcome, {user.username} !!</h1>
           <p className="welcome-subtitle">Begin your DevSecOps journey here!</p>
