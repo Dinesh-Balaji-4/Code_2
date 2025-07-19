@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'users',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'users.authentication.CookieJWTAuthentication',
+    )
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
